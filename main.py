@@ -1,17 +1,17 @@
-import logging
 import pytesseract
 from PIL import Image
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
 
-def main():
-    logging.info('Running the script locally.')
+def main(image_path=None):
 
     # Prompt the user to select a file using the file explorer
     root = Tk()
     root.withdraw()
-    image_path = askopenfilename()
+
+    if image_path == None:
+        image_path = askopenfilename()
 
     if image_path:
         try:
