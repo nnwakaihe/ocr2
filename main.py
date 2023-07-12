@@ -10,7 +10,7 @@ def main(image_path=None):
     root = Tk()
     root.withdraw()
 
-    if image_path == None:
+    if image_path is None:
         image_path = askopenfilename()
 
     if image_path:

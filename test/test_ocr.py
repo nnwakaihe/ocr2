@@ -48,7 +48,7 @@ class TestMain:
 
     def test_successful_extraction(mock_tkinter, capsys):
         with mock.patch('main.pytesseract.image_to_string', return_value='test_text'):
-            main()
+            main(r'D:\Pictures\SQL udemy cert.jpg')
 
         captured = capsys.readouterr()
         assert captured.out == 'Text Extracted from Image: test_text\n'
