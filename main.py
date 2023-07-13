@@ -30,8 +30,8 @@ def show_extracted_text(text):
     button = Button(root, text="Close", command=root.destroy)
     button.pack()
 
-    # Run the Tkinter event loop
-    root.mainloop()
+    # Wait for the window to be closed
+    root.wait_window()
 
 def main(image_path=None):
 
@@ -47,7 +47,6 @@ def main(image_path=None):
             pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
             text = pytesseract.image_to_string(Image.open(image_path))
             show_extracted_text(text)  # Display extracted text in a pop-up window
-            root.destroy()  # Close the pop-up window
         except ValueError:
             messagebox.showinfo("Error", "Failed to extract text from the image.")
     elif image_path == "":
