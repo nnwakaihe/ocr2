@@ -4,6 +4,7 @@ from tkinter import Tk, Text, Scrollbar, Frame, Button, messagebox
 from tkinter.filedialog import askopenfilename
 import argparse
 import sys
+import os
 
 def show_extracted_text(text):
     root = Tk()
@@ -38,7 +39,8 @@ def show_extracted_text(text):
 def main(image_path=None):
     if image_path is not None:
         try:
-            pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+            tesseract_path = os.environ.get('tesseract_path')
+            pytesseract.pytesseract.tesseract_cmd = tesseract_path
             text = pytesseract.image_to_string(Image.open(image_path))
             show_extracted_text(text)  # Display extracted text in a pop-up window
         except ValueError:
