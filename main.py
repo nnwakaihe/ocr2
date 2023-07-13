@@ -39,13 +39,14 @@ def show_extracted_text(text):
 def main(image_path=None):
     if image_path is not None:
         try:
-            tesseract_path = os.environ.get('tesseract_path')
+            tesseract_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Tesseract-OCR', 'tesseract.exe') #path to tesseract.exe file which is saved in project directory
+            path_string = r'C:\Users\Nnamaka\PycharmProjects\ocr2\Tesseract-OCR\tesseract.exe'
             pytesseract.pytesseract.tesseract_cmd = tesseract_path
             text = pytesseract.image_to_string(Image.open(image_path))
             show_extracted_text(text)  # Display extracted text in a pop-up window
         except ValueError:
             messagebox.showinfo("Error", "Failed to extract text from the image.")
-    elif image_path == "":
+    else:
         messagebox.showinfo("Error", "No file selected.")
 
 if __name__ == '__main__':
