@@ -2,6 +2,8 @@ import pytesseract
 from PIL import Image
 from tkinter import Tk, Text, Scrollbar, Frame, Button, messagebox
 from tkinter.filedialog import askopenfilename
+import argparse
+import sys
 
 def show_extracted_text(text):
     root = Tk()
@@ -27,22 +29,14 @@ def show_extracted_text(text):
     text_widget.config(state='disabled')
 
     # Create a Close button to close the window
-    button = Button(root, text="Close", command=root.destroy)
+    button = Button(root, text="Close", command=lambda: [root.destroy(), sys.exit()])
     button.pack()
 
-    # Wait for the window to be closed
-    root.wait_window()
+    # Run the Tkinter event loop
+    root.mainloop()
 
 def main(image_path=None):
-
-    # Prompt the user to select a file using the file explorer
-    root = Tk()
-    root.withdraw()
-
-    if image_path is None:
-        image_path = askopenfilename()
-
-    if image_path:
+    if image_path is not None:
         try:
             pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
             text = pytesseract.image_to_string(Image.open(image_path))
@@ -53,4 +47,22 @@ def main(image_path=None):
         messagebox.showinfo("Error", "No file selected.")
 
 if __name__ == '__main__':
-    main()
+    # Parse command-line arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('image_path', nargs='?', default=None, help='Path to the image file')
+    args = parser.parse_args()
+
+    # If an image file is provided as a command-line argument, use it as the image_path
+    if args.image_path is not None:
+        main(args.image_path)
+    else:
+        # Prompt the user to select a file using the file explorer
+        root = Tk()
+        root.withdraw()
+        image_path = askopenfilename()
+
+        main(image_path)
+
+# To build the .exe application running the following commands in the terminal. The .exe file can then be found in the \dist folder:
+# pyinstaller --name ocr_app --onefile main.py
+# pyinstaller ocr_app.spec
