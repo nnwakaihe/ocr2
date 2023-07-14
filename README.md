@@ -3,7 +3,7 @@
 
  Before running:
  - Install "tesseract-ocr-w64-setup-5.3.1.20230401.exe" file found in repo, or download the latest version here https://github.com/UB-Mannheim/tesseract/wiki 
- - Save the path for the installed tesseract.exe file as an environment variable called "tessreact_path".
+ - Save the path for the installed tesseract.exe file as an environment variable called "TESSERACT_PATH".
 
 
 The code can be run as an executable application. 
